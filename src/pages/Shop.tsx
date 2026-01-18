@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search } from 'lucide-react';
+import { Search, ArrowLeft } from 'lucide-react';
 import { foodStores } from '../data/foodStores';
 
 export function Shop() {
@@ -13,8 +13,15 @@ export function Shop() {
   return (
     <div className="flex flex-col h-screen bg-gray-50">
       <div className="fixed top-0 left-0 right-0 z-10 bg-white pt-4 pb-4 px-4 border-b border-gray-100">
-        <div className="flex items-center justify-center mb-4">
+        <div className="flex items-center justify-between mb-4">
+          <button
+            onClick={() => navigate('/aletwende-send')}
+            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          >
+            <ArrowLeft className="w-6 h-6 text-gray-800" />
+          </button>
           <h1 className="text-2xl font-bold text-center text-green-600">Shop</h1>
+          <div className="w-10"></div>
         </div>
 
         <div className="relative mb-2">

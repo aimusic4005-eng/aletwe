@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart } from 'lucide-react';
 import { foodStores } from '../data/foodStores';
-import { useFoodOrder } from '../contexts/FoodOrderContext';
+import { useFoodOrderSession } from '../contexts/FoodOrderSession';
 
 export function OrderFoodies() {
   const { storeId } = useParams();
   const navigate = useNavigate();
-  const { cartItems, addToCart, isItemInCart, getCartCount } = useFoodOrder();
+  const { addToCart, isItemInCart, getCartCount } = useFoodOrderSession();
 
   const store = foodStores.find(s => s.id === storeId);
 
@@ -81,6 +81,8 @@ export function OrderFoodies() {
                         name: food.name,
                         price: food.price,
                         image: food.image,
+                        storeId: store.id,
+                        storeName: store.name
                       })
                     }
                     className={`w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
@@ -100,6 +102,7 @@ export function OrderFoodies() {
 
       <div className="fixed bottom-0 left-0 right-0 z-10 bg-white px-4 py-3 border-t border-gray-100">
         <button
+          onClick={() => cartCount > 0 && navigate('/foodies-route')}
           disabled={cartCount === 0}
           className={`w-full py-3 rounded-lg font-semibold text-white transition-colors ${
             cartCount > 0

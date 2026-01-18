@@ -17,9 +17,10 @@ import { WhatWentWrong } from './pages/WhatWentWrong';
 import { AletwendeSend } from './pages/AletwendeSend';
 import { Shop } from './pages/Shop';
 import { OrderFoodies } from './pages/OrderFoodies';
+import { FoodiesRoute } from './pages/FoodiesRoute';
 import { MessageProvider } from './contexts/MessageContext';
 import { RideProvider } from './contexts/RideContext';
-import { FoodOrderProvider } from './contexts/FoodOrderContext';
+import { FoodOrderSessionProvider } from './contexts/FoodOrderSession';
 import { CurrentRideBar } from './components/CurrentRideBar';
 import { WaitingForDriverBar } from './components/WaitingForDriverBar';
 import { RatingModal } from './components/RatingModal';
@@ -321,6 +322,10 @@ function AppContent() {
               element={<OrderFoodies />}
             />
             <Route
+              path="/foodies-route"
+              element={<FoodiesRoute />}
+            />
+            <Route
               path="/select-ride"
               element={
                 isRideActive() ? (
@@ -403,11 +408,11 @@ function AppContent() {
 
 function App() {
   return (
-    <FoodOrderProvider>
+    <FoodOrderSessionProvider>
       <Router>
         <AppContent />
       </Router>
-    </FoodOrderProvider>
+    </FoodOrderSessionProvider>
   );
 }
 
