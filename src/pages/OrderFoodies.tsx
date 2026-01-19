@@ -79,7 +79,7 @@ export function OrderFoodies() {
           </div>
         </div>
 
-        <p className="text-xs text-gray-500 mb-300">Order Foodies</p> 
+        <p className="text-xs text-gray-500 mb-0">Order Foodies</p> 
         <h1 className="text-xl font-bold text-gray-900">{store.name}</h1>
       </div>
 
