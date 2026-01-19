@@ -104,7 +104,7 @@ export function Shop() {
             >
               <ArrowLeft size={24} className="text-gray-800" />
             </motion.button>
-            <h1 className="text-3xl font-bold text-gray-900">Shopt</h1>
+            <h1 className="text-3xl font-bold text-gray-900">Select a Foodies Store</h1>
           </div>
 
           <div className="relative mb-4">
