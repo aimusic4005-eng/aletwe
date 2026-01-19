@@ -76,7 +76,7 @@ export function OrderFoodies() {
                 {cartCount}
               </motion.span>
             )}
-          </div>
+         </div>
         </div>
 
         <p className="text-xs text-gray-500 mb-2">Order Foodies</p> 
