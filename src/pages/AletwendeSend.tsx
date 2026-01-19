@@ -100,56 +100,52 @@ export const AletwendeSend: React.FC = () => {
             <motion.button
               onClick={() => navigate('/')}
               whileTap={{ scale: 0.95 }}
-              className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors"
+              className="flex items-center justify-center w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors flex-shrink-0"
             >
               <ArrowLeft size={24} className="text-gray-800" />
             </motion.button>
             <h1 className="text-3xl font-bold text-gray-900">Aletwende Send</h1>
           </div>
-          <p className="text-lg text-gray-600 font-medium pl-14">What would you like to send?</p>
+          <p className="text-lg text-gray-600 font-medium text-center">What would you like to send?</p>
         </div>
 
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="flex-1 overflow-y-auto p-4 space-y-3"
+          className="flex-1 overflow-x-auto overflow-y-hidden p-4"
         >
-          {services.map((service, index) => (
-            <motion.button
-              key={service.id}
-              variants={itemVariants}
-              onClick={() => handleServiceClick(service.id)}
-              whileTap={{ scale: 0.98 }}
-              className={`w-full ${
-                index === 4
-                  ? 'col-span-2 rounded-2xl p-6 flex flex-col items-center justify-center gap-3'
-                  : 'rounded-3xl p-5 flex items-center gap-4'
-              } ${service.color} border ${service.borderColor} transition-all hover:shadow-lg`}
-            >
-              {index === 4 ? (
-                <>
-                  <div className={`text-5xl ${service.color === 'bg-teal-600' ? 'text-white' : ''}`}>
-                    ⚙️
-                  </div>
-                  <div className={`text-center ${service.color === 'bg-teal-600' ? 'text-white' : ''}`}>
-                    <h3 className="font-bold text-xl">{service.label}</h3>
-                    <p className="text-sm opacity-80">{service.description}</p>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className={`flex-shrink-0 text-4xl ${typeof service.icon === 'string' ? '' : 'text-gray-700'}`}>
-                    {typeof service.icon === 'string' ? service.icon : service.icon}
-                  </div>
-                  <div className="text-left">
-                    <h3 className="font-bold text-gray-900">{service.label}</h3>
-                    <p className="text-xs text-gray-600">{service.description}</p>
-                  </div>
-                </>
-              )}
-            </motion.button>
-          ))}
+          <div className="flex gap-4 pb-2" style={{ minWidth: 'min-content' }}>
+            {services.map((service, index) => (
+              <motion.button
+                key={service.id}
+                variants={itemVariants}
+                onClick={() => handleServiceClick(service.id)}
+                whileTap={{ scale: 0.98 }}
+                className={`flex-shrink-0 rounded-3xl p-6 flex flex-col items-center justify-center gap-3 transition-all hover:shadow-lg ${service.color} border ${service.borderColor}`}
+                style={{
+                  width: index === 4 ? '220px' : '200px',
+                  height: '220px'
+                }}
+              >
+                <div className={`text-5xl ${service.color === 'bg-teal-600' ? 'text-white' : ''}`}>
+                  {typeof service.icon === 'string' ? service.icon : (
+                    <span className="text-gray-700">
+                      {service.id === 'package' && '📦'}
+                      {service.id === 'foodies' && '🍔'}
+                      {service.id === 'clothes' && '👔'}
+                      {service.id === 'truck' && '🚚'}
+                      {service.id === 'heavy' && '⚙️'}
+                    </span>
+                  )}
+                </div>
+                <div className={`text-center ${service.color === 'bg-teal-600' ? 'text-white' : ''}`}>
+                  <h3 className="font-bold text-sm leading-tight">{service.label}</h3>
+                  <p className="text-xs opacity-70 mt-1">{service.description}</p>
+                </div>
+              </motion.button>
+            ))}
+          </div>
         </motion.div>
       </motion.div>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart } from 'lucide-react';
+import { motion } from 'framer-motion';
 import { foodStores } from '../data/foodStores';
 import { useFoodOrderSession } from '../contexts/FoodOrderSession';
 
@@ -27,23 +28,53 @@ export function OrderFoodies() {
 
   const cartCount = getCartCount();
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+        delayChildren: 0.1
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4 }
+    }
+  };
+
   return (
-    <div className="flex flex-col h-screen bg-gray-50">
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+      className="flex flex-col h-screen bg-gray-50"
+    >
       <div className="fixed top-0 left-0 right-0 z-10 bg-white px-4 py-3 border-b border-gray-100">
         <div className="flex items-center justify-between mb-3">
-          <button
+          <motion.button
             onClick={() => navigate('/shop')}
+            whileTap={{ scale: 0.95 }}
             className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
           >
             <ArrowLeft className="w-6 h-6 text-gray-800" />
-          </button>
+          </motion.button>
 
           <div className="relative">
             <ShoppingCart className="w-6 h-6 text-gray-800" />
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+              <motion.span
+                initial={{ scale: 0 }}
+                animate={{ scale: 1 }}
+                className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center"
+              >
                 {cartCount}
-              </span>
+              </motion.span>
             )}
           </div>
         </div>
@@ -52,11 +83,18 @@ export function OrderFoodies() {
         <h1 className="text-xl font-bold text-gray-900">{store.name}</h1>
       </div>
 
-      <div className="flex-1 overflow-y-auto mt-28 px-4 pb-24">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        className="flex-1 overflow-y-auto mt-28 px-4 pb-24 pt-4"
+      >
         <div className="grid grid-cols-2 gap-4">
           {store.foods.map(food => (
-            <div
+            <motion.div
               key={food.id}
+              variants={itemVariants}
+              whileTap={{ scale: 0.98 }}
               className={`bg-white rounded-lg overflow-hidden shadow-sm transition-all ${
                 isItemInCart(food.id) ? 'ring-2 ring-green-500' : ''
               }`}
@@ -95,10 +133,10 @@ export function OrderFoodies() {
                   </button>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       <div className="fixed bottom-0 left-0 right-0 z-10 bg-white px-4 py-3 border-t border-gray-100">
         <button
@@ -113,6 +151,6 @@ export function OrderFoodies() {
           Complete Order ({cartCount})
         </button>
       </div>
-    </div>
+    </motion.div>
   );
 }
