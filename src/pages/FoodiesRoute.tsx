@@ -109,7 +109,7 @@ export function FoodiesRoute() {
 
   const handleGoToDelivery = () => {
     removeStopsWithoutFoodOrAddress();
-    console.log('Navigate to delivery selection page');
+    navigate('/delivery');
   };
 
   const currentLocationFoods = getCurrentLocationFoods();
